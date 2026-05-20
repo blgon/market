@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IdolFarm Meta Creative 종합 성과 분석 보고서</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+    background: #fafaf8;
+    color: #2c2c2a;
+    line-height: 1.7;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  header {
+    padding: 48px 56px 32px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1a1a18;
+  }
+  header .subtitle {
+    font-size: 14px;
+    color: #888780;
+  }
+  header .meta {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header .meta span {
+    font-size: 12px;
+    padding: 6px 12px;
+    background: #f1efe8;
+    border-radius: 6px;
+    color: #5f5e5a;
+  }
+  main { padding: 40px 56px 56px; }
+  section { margin-bottom: 48px; }
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #1a1a18;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #2c2c2a;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    color: #1a1a18;
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #444441;
+  }
+  p { margin-bottom: 12px; font-size: 14.5px; }
+  ul, ol { padding-left: 24px; margin-bottom: 12px; font-size: 14.5px; }
+  li { margin-bottom: 4px; }
+  strong { font-weight: 600; color: #1a1a18; }
+  code { background: #f1efe8; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'SF Mono', Menlo, monospace; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 13.5px;
+    background: #fff;
+  }
+  thead th {
+    background: #f1efe8;
+    color: #2c2c2a;
+    font-weight: 600;
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 2px solid #d3d1c7;
+    font-size: 13px;
+  }
+  tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ebe9e2;
+  }
+  tbody tr:hover { background: #faf9f5; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .b-s { background: #E1F5EE; color: #04342C; }
+  .b-a { background: #FAEEDA; color: #412402; }
+  .b-b { background: #E6F1FB; color: #042C53; }
+  .b-c { background: #FCEBEB; color: #501313; }
+  .b-star { background: #FAEEDA; color: #412402; }
+  .market-block {
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  .market-block.us-aos { border-left: 4px solid #378ADD; }
+  .market-block.us-ios { border-left: 4px solid #7F77DD; }
+  .market-block.kr-aos { border-left: 4px solid #1D9E75; }
+  .market-block.jp-ios { border-left: 4px solid #D85A30; }
+  .callout {
+    background: #f8f7f3;
+    border-left: 3px solid #888780;
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .callout.green { background: #E1F5EE; border-color: #1D9E75; }
+  .callout.red { background: #FCEBEB; border-color: #A32D2D; }
+  .callout.amber { background: #FAEEDA; border-color: #BA7517; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .summary-card {
+    padding: 16px 20px;
+    background: #f8f7f3;
+    border-radius: 8px;
+  }
+  .summary-card .label {
+    font-size: 11px;
+    color: #888780;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .summary-card .value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a18;
+  }
+  footer {
+    padding: 24px 56px;
+    background: #f8f7f3;
+    font-size: 12px;
+    color: #888780;
+    text-align: center;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  @media (max-width: 768px) {
+    body { padding: 16px 8px; }
+    header { padding: 28px 24px 20px; }
+    main { padding: 24px 24px 32px; }
+    footer { padding: 16px 24px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; }
+    table { font-size: 12px; }
+    thead th, tbody td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>IdolFarm Meta Creative 종합 성과 분석</h1>
+  <div class="subtitle">3-5월 테스트 통합 결과 · 6월 마케팅 플랜 추천</div>
+  <div class="meta">
+    <span>분석 기간: 2025년 3월 - 5월</span>
+    <span>플랫폼: Meta</span>
+    <span>지표 기준: Net (÷ 1.1)</span>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <h2>분석 프레임워크</h2>
+  <p>세 지표를 함께 봐야 정확한 소재 평가가 가능합니다.</p>
+  <ul>
+    <li><strong>CPI(Net) 단독</strong>: 설치만 싸게 만들 수 있는 소재 (D1에 이탈하는 유저일 수 있음)</li>
+    <li><strong>CPR_D1(Net) 단독</strong>: 유저 퀄리티는 좋지만 표본이 적을 수 있음 (운빨일 수 있음)</li>
+    <li><strong>Spend</strong>: 실제 검증된 규모. Spend가 큰 소재 = 알고리즘이 충분히 노출시킨 = 신뢰 가능</li>
+  </ul>
+  <div class="callout">
+    <strong>핵심 원칙:</strong> 세 지표를 동시 만족할 때 6월 메인 소재로 자격을 부여합니다.
+  </div>
+  <h4>계산식</h4>
+  <ul>
+    <li><code>CPI(Net) = Spend ÷ 1.1 ÷ Install</code></li>
+    <li><code>CPR_D1(Net) = Spend ÷ 1.1 ÷ D1 Retained User</code></li>
+  </ul>
+</section>
+
+<section>
+  <h2>국가/OS × 소재별 통합 비교 그래프</h2>
+  <p style="font-size:13px;color:#888780;margin-bottom:16px;">lower is better · 3-5월 합산 · 두 지표 모두 Net 기준 (÷ 1.1 적용)</p>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; font-size: 12px; color: #5f5e5a;">
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 2px; background: #378ADD;"></span>CPI(Net)</span>
+    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 2px; background: #D85A30;"></span>CPR_D1(Net)</span>
+  </div>
+
+  <div style="display: flex; width: 100%; align-items: stretch;">
+    <div id="geoColumn" style="display: flex; flex-direction: column; min-width: 90px; font-size: 11px; font-weight: 500;"></div>
+    <div style="flex: 1; position: relative; height: 1200px; min-width: 0;">
+      <canvas id="netChart" role="img" aria-label="Horizontal bar chart of CPI Net and CPR D1 Net per creative grouped by US AOS, US IOS, KR AOS, and JP IOS">Net CPI and CPR D1 per creative across four markets with value labels.</canvas>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>시장별 종합 평가</h2>
+
+  <div class="market-block kr-aos">
+    <h3>🇰🇷 KR-AOS — 모든 소재가 우수, 검증 규모 vs 효율로 분류</h3>
+    <table>
+      <thead>
+        <tr><th>등급</th><th>소재</th><th class="num">Spend</th><th class="num">CPI(Net)</th><th class="num">CPR_D1(Net)</th><th>평가</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="badge b-s">S</span></td><td><strong>igpbuild(cpi12)</strong></td><td class="num">$319</td><td class="num">$0.93</td><td class="num">$2.42</td><td>검증된 볼륨 드라이버 (install 311, D1 120)</td></tr>
+        <tr><td><span class="badge b-s">S</span></td><td><strong>igp(helper)</strong></td><td class="num">$125</td><td class="num">$0.82</td><td class="num">$2.11</td><td>충분한 검증 + 최저 CPI/CPR 조합</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>char_fake(simulation)</td><td class="num">$67</td><td class="num">$0.80</td><td class="num">$2.65</td><td>효율 좋으나 검증량 보통</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>igp(levelup)</td><td class="num">$76</td><td class="num">$0.96</td><td class="num">$2.76</td><td>안정적</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>help_fake(choice)</td><td class="num">$37</td><td class="num">$0.85</td><td class="num">$1.96 ⭐</td><td>전체 최저 CPR_D1, 검증량 추가 필요</td></tr>
+        <tr><td><span class="badge b-b">B</span></td><td>igpfarm1(cpi14)</td><td class="num">$48</td><td class="num">$1.28</td><td class="num">$2.90</td><td>CPI 다소 높음</td></tr>
+        <tr><td><span class="badge b-b">B</span></td><td>igpmake(cpi13)</td><td class="num">$54</td><td class="num">$1.02</td><td class="num">$3.76</td><td>CPR 살짝 높음</td></tr>
+        <tr><td><span class="badge b-b">B</span></td><td>igpfarm2(cpi15)</td><td class="num">$23</td><td class="num">$1.23</td><td class="num">$4.19</td><td>검증량 부족</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="market-block jp-ios">
+    <h3>🇯🇵 JP-IOS — igp 강세, fake 부진 명확</h3>
+    <table>
+      <thead>
+        <tr><th>등급</th><th>소재</th><th class="num">Spend</th><th class="num">CPI(Net)</th><th class="num">CPR_D1(Net)</th><th>평가</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="badge b-s">S</span></td><td><strong>igpbuild(cpi12)</strong></td><td class="num">$528</td><td class="num">$1.97</td><td class="num">$3.78</td><td>JP 최대 볼륨 드라이버 (install 244, D1 127)</td></tr>
+        <tr><td><span class="badge b-s">S</span></td><td><strong>igpmake(cpi13)</strong></td><td class="num">$129</td><td class="num">$1.96</td><td class="num">$3.46</td><td>안정적 효율 + 충분한 검증</td></tr>
+        <tr><td><span class="badge b-s">S</span></td><td><strong>igpfarm1(cpi14)</strong></td><td class="num">$236</td><td class="num">$2.11</td><td class="num">$4.06</td><td>검증량 우수, JP에서 의외의 선전</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>igp(levelup)</td><td class="num">$71</td><td class="num">$1.84</td><td class="num">$3.22 ⭐</td><td>JP 최저 CPR, 검증량 추가 필요</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>char_fake(simulation)</td><td class="num">$23</td><td class="num">$1.87</td><td class="num">$3.43</td><td>표본 적지만 효율 우수</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>igp(helper)</td><td class="num">$167</td><td class="num">$2.11</td><td class="num">$5.07</td><td>검증량 충분하나 CPR 다소 높음</td></tr>
+        <tr><td><span class="badge b-c">C</span></td><td>fake_harvest(watermelon)</td><td class="num">$343</td><td class="num">$3.03</td><td class="num">$7.43</td><td>검증량 충분하지만 비효율 확인</td></tr>
+        <tr><td><span class="badge b-c">C</span></td><td>fake_orange / fake_watermelon</td><td class="num">$77 / $56</td><td class="num">$5+</td><td class="num">$9+</td><td>JP 부적합 명확</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="market-block us-ios">
+    <h3>🇺🇸 US-IOS — fake가 의외로 강함, igp 효율 악화</h3>
+    <table>
+      <thead>
+        <tr><th>등급</th><th>소재</th><th class="num">Spend</th><th class="num">CPI(Net)</th><th class="num">CPR_D1(Net)</th><th>평가</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="badge b-s">S</span></td><td><strong>fake_harvest(watermelon)</strong></td><td class="num">$556</td><td class="num">$1.93</td><td class="num">$5.38</td><td>US-IOS 볼륨+효율 모두 1위</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>fake_watermelon</td><td class="num">$43</td><td class="num">$1.64</td><td class="num">$5.63</td><td>효율 좋음, 검증량 추가</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>fake_orange</td><td class="num">$59</td><td class="num">$2.15</td><td class="num">$5.97</td><td>안정적</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>igpbuild(cpi12)</td><td class="num">$1,666</td><td class="num">$1.86</td><td class="num">$7.57</td><td>최대 Spend지만 CPR이 fake 대비 약함</td></tr>
+        <tr><td><span class="badge b-b">B</span></td><td>igpmake(cpi13)</td><td class="num">$512</td><td class="num">$1.91</td><td class="num">$7.89</td><td>볼륨은 크지만 CPR 약함</td></tr>
+        <tr><td><span class="badge b-b">B</span></td><td>fake_carrot</td><td class="num">$14</td><td class="num">$2.10</td><td class="num">$4.21 ⭐</td><td>US 최저 CPR, 검증량 절대 부족</td></tr>
+        <tr><td><span class="badge b-b">B</span></td><td>igpfarm2(cpi15)</td><td class="num">$136</td><td class="num">$2.53</td><td class="num">$6.88</td><td>-</td></tr>
+        <tr><td><span class="badge b-c">C</span></td><td>igp(helper)</td><td class="num">$139</td><td class="num">$2.86</td><td class="num">$11.45</td><td>비효율</td></tr>
+        <tr><td><span class="badge b-c">C</span></td><td><strong>igpfarm1(cpi14)</strong></td><td class="num">$87</td><td class="num">$2.72</td><td class="num">$15.75</td><td>즉시 제외</td></tr>
+        <tr><td><span class="badge b-c">C</span></td><td>char_fake(simulation)</td><td class="num">$14</td><td class="num">$1.59</td><td class="num">$12.73</td><td>검증량 부족 + CPR 매우 높음</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="market-block us-aos">
+    <h3>🇺🇸 US-AOS — 4월 이후 미진행, 재평가 필요</h3>
+    <table>
+      <thead>
+        <tr><th>등급</th><th>소재</th><th class="num">Spend</th><th class="num">CPI(Net)</th><th class="num">CPR_D1(Net)</th><th>평가</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="badge b-s">S</span></td><td><strong>igpbuild(cpi12)</strong></td><td class="num">$1,456</td><td class="num">$1.39</td><td class="num">$4.96</td><td>누적 install 951, US 최대 볼륨</td></tr>
+        <tr><td><span class="badge b-a">A</span></td><td>igpmake(cpi13)</td><td class="num">$227</td><td class="num">$1.59</td><td class="num">$4.49</td><td>US-AOS 최저 CPR</td></tr>
+        <tr><td><span class="badge b-b">B</span></td><td>igp(helper)</td><td class="num">$143</td><td class="num">$1.97</td><td class="num">$7.66</td><td>CPR 다소 높음</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>🚀 6월 시장별 라이브 소재 최종 추천</h2>
+
+  <div class="callout">
+    <strong>라이브 조건</strong>
+    <ul style="margin: 8px 0 0;">
+      <li>🇰🇷 KR은 <strong>AOS만</strong>, 🇯🇵 JP는 <strong>IOS만</strong>, 🇺🇸 US는 <strong>IOS만</strong> 진행</li>
+      <li>각 시장 <strong>최소 4종 이상</strong> 라이브</li>
+      <li>검증 완료 소재(메인) + 이전 Cost 소진이 적어 재검증이 필요한 소재(테스트) 균형 배치</li>
+    </ul>
+  </div>
+
+  <div class="market-block kr-aos">
+    <h3>🇰🇷 KR - AOS (5종 추천)</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>소재</th><th class="num">Spend</th><th class="num">CPI(Net)</th><th class="num">CPR_D1(Net)</th><th>역할</th><th>분류</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>igpbuild(cpi12)</strong></td><td class="num">$319</td><td class="num">$0.93</td><td class="num">$2.42</td><td>🏆 메인 볼륨 드라이버</td><td><span class="badge b-s">검증완료</span></td></tr>
+        <tr><td>2</td><td><strong>igp(helper)</strong></td><td class="num">$125</td><td class="num">$0.82</td><td class="num">$2.11</td><td>🥈 효율 메인</td><td><span class="badge b-s">검증완료</span></td></tr>
+        <tr><td>3</td><td><strong>char_fake(simulation)</strong></td><td class="num">$67</td><td class="num">$0.80</td><td class="num">$2.65</td><td>보조 메인</td><td><span class="badge b-s">검증완료</span></td></tr>
+        <tr><td>4</td><td><strong>help_fake(choice)</strong></td><td class="num">$37</td><td class="num">$0.85</td><td class="num">$1.96 ⭐</td><td>🔬 재검증 필수 (전체 최저 CPR)</td><td><span class="badge b-a">재검증</span></td></tr>
+        <tr><td>5</td><td><strong>igp(levelup)</strong></td><td class="num">$76</td><td class="num">$0.96</td><td class="num">$2.76</td><td>안정 보조</td><td><span class="badge b-s">검증완료</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout green">
+      <strong>추천 이유</strong>
+      <ul style="margin: 8px 0 0;">
+        <li><strong>help_fake(choice)</strong>: 4월에 Spend $37로 소진이 적었지만 CPR_D1 $1.96은 전체 시장 통틀어 최저. 6월에 볼륨 확대로 재검증 필수</li>
+        <li>모든 소재가 CPR_D1 $3 이하로 안정적 → KR-AOS는 5종까지 운영해도 효율 유지 가능</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="market-block jp-ios">
+    <h3>🇯🇵 JP - IOS (5종 추천)</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>소재</th><th class="num">Spend</th><th class="num">CPI(Net)</th><th class="num">CPR_D1(Net)</th><th>역할</th><th>분류</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>igpbuild(cpi12)</strong></td><td class="num">$528</td><td class="num">$1.97</td><td class="num">$3.78</td><td>🏆 메인 볼륨 드라이버</td><td><span class="badge b-s">검증완료</span></td></tr>
+        <tr><td>2</td><td><strong>igpmake(cpi13)</strong></td><td class="num">$129</td><td class="num">$1.96</td><td class="num">$3.46</td><td>🥈 효율 메인</td><td><span class="badge b-s">검증완료</span></td></tr>
+        <tr><td>3</td><td><strong>igpfarm1(cpi14)</strong></td><td class="num">$236</td><td class="num">$2.11</td><td class="num">$4.06</td><td>보조 메인</td><td><span class="badge b-s">검증완료</span></td></tr>
+        <tr><td>4</td><td><strong>igp(levelup)</strong></td><td class="num">$71</td><td class="num">$1.84</td><td class="num">$3.22 ⭐</td><td>🔬 재검증 필수 (JP 최저 CPR)</td><td><span class="badge b-a">재검증</span></td></tr>
+        <tr><td>5</td><td><strong>char_fake(simulation)</strong></td><td class="num">$23</td><td class="num">$1.87</td><td class="num">$3.43</td><td>🔬 재검증 필수 (KR/JP 동시 강세)</td><td><span class="badge b-a">재검증</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout green">
+      <strong>추천 이유</strong>
+      <ul style="margin: 8px 0 0;">
+        <li><strong>igp(levelup)</strong>: 4월 Spend $71로 검증량 작았지만 JP에서 가장 낮은 CPR_D1 $3.22. 재투입 시 볼륨까지 확보 가능성 큼</li>
+        <li><strong>char_fake(simulation)</strong>: 4월 Spend $23로 매우 적었지만 CPR_D1 $3.43, JP IOS에서 D1 ROAS 268% 기록. 폭발적 잠재력</li>
+        <li>❌ fake 시리즈(harvest/orange/watermelon/carrot)는 JP 부적합 명확, 모두 제외</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="market-block us-ios">
+    <h3>🇺🇸 US - IOS (5종 추천)</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>소재</th><th class="num">Spend</th><th class="num">CPI(Net)</th><th class="num">CPR_D1(Net)</th><th>역할</th><th>분류</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>fake_harvest(watermelon)</strong></td><td class="num">$556</td><td class="num">$1.93</td><td class="num">$5.38</td><td>🏆 메인 볼륨 드라이버</td><td><span class="badge b-s">검증완료</span></td></tr>
+        <tr><td>2</td><td><strong>fake_watermelon</strong></td><td class="num">$43</td><td class="num">$1.64</td><td class="num">$5.63</td><td>🔬 재검증 필수</td><td><span class="badge b-a">재검증</span></td></tr>
+        <tr><td>3</td><td><strong>fake_orange</strong></td><td class="num">$59</td><td class="num">$2.15</td><td class="num">$5.97</td><td>🔬 재검증 필수</td><td><span class="badge b-a">재검증</span></td></tr>
+        <tr><td>4</td><td><strong>fake_carrot</strong></td><td class="num">$14</td><td class="num">$2.10</td><td class="num">$4.21 ⭐</td><td>🔬 재검증 필수 (US 최저 CPR)</td><td><span class="badge b-a">재검증</span></td></tr>
+        <tr><td>5</td><td><strong>igpbuild(cpi12)</strong></td><td class="num">$1,666</td><td class="num">$1.86</td><td class="num">$7.57</td><td>보조 볼륨</td><td><span class="badge b-s">검증완료</span></td></tr>
+      </tbody>
+    </table>
+    <div class="callout green">
+      <strong>추천 이유</strong>
+      <ul style="margin: 8px 0 0;">
+        <li><strong>fake_watermelon / fake_orange / fake_carrot</strong>: 5월 Spend가 $14~$59로 작아 검증 부족했지만, CPR_D1이 fake_harvest보다도 낮거나 비슷한 수준. fake 시리즈 전체가 US-IOS에 강한 적합성을 보이므로 4종 동시 라이브해 시리즈 검증 권장</li>
+        <li><strong>fake_carrot</strong>은 install 6건뿐인데 CPR $4.21은 US 전체 최저 → 볼륨 확대 시 잠재력 매우 큼</li>
+        <li>❌ igpfarm1(cpi14), igp(helper), char_fake 등 CPR 높은 소재 제외</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>📊 시장별 운영 전략 요약</h3>
+  <table>
+    <thead>
+      <tr><th>시장</th><th class="num">라이브 소재 수</th><th class="num">검증완료</th><th class="num">재검증</th><th>핵심 전략</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🇰🇷 KR-AOS</td><td class="num">5종</td><td class="num">4종</td><td class="num">1종</td><td>안정 운영 + 1종 재검증</td></tr>
+      <tr><td>🇯🇵 JP-IOS</td><td class="num">5종</td><td class="num">3종</td><td class="num">2종</td><td>igp 시리즈 집중 + 잠재 강자 2종 부활</td></tr>
+      <tr><td>🇺🇸 US-IOS</td><td class="num">5종</td><td class="num">2종</td><td class="num">3종</td><td>fake 시리즈 풀라인업 검증</td></tr>
+    </tbody>
+  </table>
+
+  <h3>💰 권장 예산 분배</h3>
+  <table>
+    <thead>
+      <tr><th>시장</th><th class="num">비중</th><th>메인 (60%)</th><th>재검증 (40%)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🇰🇷 KR-AOS</td><td class="num"><strong>35%</strong></td><td>igpbuild, igp(helper), char_fake, igp(levelup)</td><td>help_fake(choice)</td></tr>
+      <tr><td>🇯🇵 JP-IOS</td><td class="num"><strong>40%</strong></td><td>igpbuild, igpmake, igpfarm1</td><td>igp(levelup), char_fake</td></tr>
+      <tr><td>🇺🇸 US-IOS</td><td class="num"><strong>25%</strong></td><td>fake_harvest, igpbuild</td><td>fake_watermelon, fake_orange, fake_carrot</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout amber">
+    <h4 style="margin-top:0;">🔬 재검증 소재 운영 가이드</h4>
+    <ul style="margin-bottom:0;">
+      <li>각 재검증 소재에 <strong>최소 $100 이상 Spend 보장</strong> (이전 테스트는 $14~$76 수준으로 검증량 절대 부족)</li>
+      <li><strong>2주 차에 중간 점검</strong>: CPR_D1이 이전 테스트와 유사하면 메인 승격, 악화 시 즉시 비중 축소</li>
+      <li><strong>D1 잔존 유저 수 30명 이상 확보</strong> 후 효율 판단 (통계적 신뢰도 확보)</li>
+    </ul>
+  </div>
+
+  <h3>🎁 재검증 소재의 잠재 가치</h3>
+  <table>
+    <thead>
+      <tr><th>소재</th><th>시장</th><th class="num">이전 Spend</th><th class="num">이전 CPR_D1</th><th>잠재 가치</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>help_fake(choice)</td><td>🇰🇷 KR-AOS</td><td class="num">$37</td><td class="num"><strong>$1.96</strong></td><td>전체 시장 1위 CPR — 볼륨 확대 시 KR 신규 에이스 가능성</td></tr>
+      <tr><td>igp(levelup)</td><td>🇯🇵 JP-IOS</td><td class="num">$71</td><td class="num"><strong>$3.22</strong></td><td>JP 1위 CPR — 검증량만 부족했을 뿐</td></tr>
+      <tr><td>char_fake(simulation)</td><td>🇯🇵 JP-IOS</td><td class="num">$23</td><td class="num">$3.43</td><td>JP D1 ROAS <strong>268%</strong> 기록 - 가장 폭발력 큰 다크호스</td></tr>
+      <tr><td>fake_carrot</td><td>🇺🇸 US-IOS</td><td class="num">$14</td><td class="num"><strong>$4.21</strong></td><td>US 1위 CPR - install 6건이 우연이 아닌지 검증 필수</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>🧪 6월 추가 검증 필요 (소량 테스트)</h2>
+  <p>위 5종 라이브 외에, 이전 테스트에서 표본이 부족했으나 잠재력이 크다고 판단되는 소재를 별도 소량 테스트 그룹으로 운영합니다.</p>
+
+  <ul>
+    <li>🇰🇷 KR-AOS <strong>help_fake(choice)</strong> — 전체 CPR 최저 $1.96, Spend 늘려서 검증</li>
+    <li>🇯🇵 JP-IOS <strong>igp(levelup)</strong> — JP 최저 CPR $3.22, 표본 확대 필요</li>
+    <li>🇯🇵 JP-IOS <strong>char_fake(simulation)</strong> — JP D1 ROAS 268% 기록, 다크호스 검증</li>
+    <li>🇺🇸 US-IOS <strong>fake_carrot</strong> — US 최저 CPR $4.21이지만 install 6건만 → Spend 확대 테스트</li>
+    <li>🇺🇸 US-IOS <strong>fake_watermelon / fake_orange</strong> — fake 시리즈 전반 검증 차원 동시 테스트</li>
+  </ul>
+
+  <div class="callout red">
+    <h4 style="margin-top:0;">❌ 6월 즉시 제외</h4>
+    <ul style="margin-bottom:0;">
+      <li>🇺🇸 US-IOS <strong>igpfarm1(cpi14)</strong> — CPR $15.75 (검증량까지 충분)</li>
+      <li>🇺🇸 US-IOS <strong>igp(helper)</strong> — CPR $11.45 + 검증량 충분 (비효율 확정)</li>
+      <li>🇯🇵 JP-IOS <strong>fake 시리즈 전체</strong> — Spend $343 검증에도 CPR $7~$10</li>
+      <li>🇺🇸 US-IOS <strong>char_fake(simulation)</strong> — 검증량 부족 + D1 1건으로 위험 신호</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>분석에서 새롭게 드러난 인사이트</h2>
+  <ol>
+    <li><strong>igpbuild(cpi12)는 글로벌 표준 베스트</strong> — KR/JP/US 3개 시장 모두 S급, 누적 Spend $3,756</li>
+    <li><strong>JP-IOS는 igp 시리즈가 답</strong> — 비싼 fake 시리즈에 $477 썼지만 CPR $7~$10, 같은 돈으로 igp에 썼다면 훨씬 더 좋았을 것</li>
+    <li><strong>US-IOS의 fake_harvest는 진짜 강함</strong> — Spend $556로 충분히 검증된 5.38 CPR, US-IOS의 진짜 핵심 소재</li>
+    <li><strong>검증량이 작은 소재(&lt; $50)에 대한 결론은 보류</strong> — char_fake, help_fake 등은 4-5월에 재투입 시 결론 다를 수 있음</li>
+  </ol>
+</section>
+
+<section>
+  <h2>요약: 시장별 예산 분배 가이드</h2>
+  <div class="grid-2">
+    <div class="summary-card">
+      <div class="label">🇰🇷 KR-AOS</div>
+      <div class="value">35%</div>
+      <div style="font-size:13px;color:#5f5e5a;margin-top:4px;">5종 라이브 · 최강 효율 시장, 재진입 최우선</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">🇯🇵 JP-IOS</div>
+      <div class="value">40%</div>
+      <div style="font-size:13px;color:#5f5e5a;margin-top:4px;">5종 라이브 · igp 시리즈 중심 + 다크호스 2종</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">🇺🇸 US-IOS</div>
+      <div class="value">25%</div>
+      <div style="font-size:13px;color:#5f5e5a;margin-top:4px;">5종 라이브 · fake 풀라인업 검증</div>
+    </div>
+    <div class="summary-card" style="background:#f1efe8;">
+      <div class="label">총 라이브 소재</div>
+      <div class="value">15종</div>
+      <div style="font-size:13px;color:#5f5e5a;margin-top:4px;">검증완료 9종 + 재검증 6종</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  IdolFarm Marketing Analytics · 작성일 2025.05.20
+</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<script>
+  Chart.register(ChartDataLabels);
+
+  const groupColors = {
+    "US-AOS": { bg: "#E6F1FB", text: "#042C53", border: "#378ADD" },
+    "US-IOS": { bg: "#EEEDFE", text: "#26215C", border: "#7F77DD" },
+    "KR-AOS": { bg: "#E1F5EE", text: "#04342C", border: "#1D9E75" },
+    "JP-IOS": { bg: "#FAECE7", text: "#4A1B0C", border: "#D85A30" }
+  };
+
+  const data = [
+    { group: "US-AOS", flag: "🇺🇸", label: "igpbuild(cpi12)", cpi: 1.39, cpr: 4.96, spend: 1455.55, install: 951, d1: 267 },
+    { group: "US-AOS", flag: "🇺🇸", label: "igpmake(cpi13)", cpi: 1.59, cpr: 4.49, spend: 227.38, install: 130, d1: 46 },
+    { group: "US-AOS", flag: "🇺🇸", label: "igpfarm2(cpi15)", cpi: 1.62, cpr: 8.68, spend: 76.40, install: 43, d1: 8 },
+    { group: "US-AOS", flag: "🇺🇸", label: "igpfarm1(cpi14)", cpi: 1.96, cpr: 7.20, spend: 71.28, install: 33, d1: 9 },
+    { group: "US-AOS", flag: "🇺🇸", label: "igp(helper)", cpi: 1.97, cpr: 7.66, spend: 143.18, install: 66, d1: 17 },
+    { group: "US-AOS", flag: "🇺🇸", label: "help_fake(choice)", cpi: 2.27, cpr: 7.95, spend: 17.49, install: 7, d1: 2 },
+    { group: "US-AOS", flag: "🇺🇸", label: "igp(levelup)", cpi: 2.51, cpr: 6.58, spend: 57.89, install: 21, d1: 8 },
+    { group: "US-AOS", flag: "🇺🇸", label: "char_fake(simulation)", cpi: 2.62, cpr: 7.87, spend: 17.31, install: 6, d1: 2 },
+
+    { group: "US-IOS", flag: "🇺🇸", label: "char_fake(simulation)", cpi: 1.59, cpr: 12.73, spend: 14.00, install: 8, d1: 1 },
+    { group: "US-IOS", flag: "🇺🇸", label: "fake_watermelon", cpi: 1.64, cpr: 5.63, spend: 43.32, install: 24, d1: 7 },
+    { group: "US-IOS", flag: "🇺🇸", label: "igpbuild(cpi12)", cpi: 1.86, cpr: 7.57, spend: 1666.23, install: 814, d1: 200 },
+    { group: "US-IOS", flag: "🇺🇸", label: "igpmake(cpi13)", cpi: 1.91, cpr: 7.89, spend: 512.06, install: 244, d1: 59 },
+    { group: "US-IOS", flag: "🇺🇸", label: "fake_harvest(watermelon)", cpi: 1.93, cpr: 5.38, spend: 556.02, install: 262, d1: 94 },
+    { group: "US-IOS", flag: "🇺🇸", label: "fake_carrot", cpi: 2.10, cpr: 4.21, spend: 13.89, install: 6, d1: 3 },
+    { group: "US-IOS", flag: "🇺🇸", label: "fake_orange", cpi: 2.15, cpr: 5.97, spend: 59.09, install: 25, d1: 9 },
+    { group: "US-IOS", flag: "🇺🇸", label: "igpfarm2(cpi15)", cpi: 2.53, cpr: 6.88, spend: 136.22, install: 49, d1: 18 },
+    { group: "US-IOS", flag: "🇺🇸", label: "igpfarm1(cpi14)", cpi: 2.72, cpr: 15.75, spend: 86.64, install: 29, d1: 5 },
+    { group: "US-IOS", flag: "🇺🇸", label: "igp(helper)", cpi: 2.86, cpr: 11.45, spend: 138.50, install: 44, d1: 11 },
+    { group: "US-IOS", flag: "🇺🇸", label: "igp(levelup)", cpi: 3.21, cpr: 8.03, spend: 88.31, install: 25, d1: 10 },
+    { group: "US-IOS", flag: "🇺🇸", label: "help_fake(choice)", cpi: 3.45, cpr: 8.63, spend: 18.98, install: 5, d1: 2 },
+
+    { group: "KR-AOS", flag: "🇰🇷", label: "char_fake(simulation)", cpi: 0.80, cpr: 2.65, spend: 67.00, install: 76, d1: 23 },
+    { group: "KR-AOS", flag: "🇰🇷", label: "igp(helper)", cpi: 0.82, cpr: 2.11, spend: 125.05, install: 139, d1: 54 },
+    { group: "KR-AOS", flag: "🇰🇷", label: "help_fake(choice)", cpi: 0.85, cpr: 1.96, spend: 36.60, install: 39, d1: 17 },
+    { group: "KR-AOS", flag: "🇰🇷", label: "igpbuild(cpi12)", cpi: 0.93, cpr: 2.42, spend: 318.79, install: 311, d1: 120 },
+    { group: "KR-AOS", flag: "🇰🇷", label: "igp(levelup)", cpi: 0.96, cpr: 2.76, spend: 75.82, install: 72, d1: 25 },
+    { group: "KR-AOS", flag: "🇰🇷", label: "igpmake(cpi13)", cpi: 1.02, cpr: 3.76, spend: 53.76, install: 48, d1: 13 },
+    { group: "KR-AOS", flag: "🇰🇷", label: "igpfarm2(cpi15)", cpi: 1.23, cpr: 4.19, spend: 23.02, install: 17, d1: 5 },
+    { group: "KR-AOS", flag: "🇰🇷", label: "igpfarm1(cpi14)", cpi: 1.28, cpr: 2.90, spend: 47.93, install: 34, d1: 15 },
+
+    { group: "JP-IOS", flag: "🇯🇵", label: "igp(levelup)", cpi: 1.84, cpr: 3.22, spend: 70.88, install: 35, d1: 20 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "char_fake(simulation)", cpi: 1.87, cpr: 3.43, spend: 22.65, install: 11, d1: 6 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "igpmake(cpi13)", cpi: 1.96, cpr: 3.46, spend: 129.41, install: 60, d1: 34 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "igpbuild(cpi12)", cpi: 1.97, cpr: 3.78, spend: 527.59, install: 244, d1: 127 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "igpfarm1(cpi14)", cpi: 2.11, cpr: 4.06, spend: 236.42, install: 102, d1: 53 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "igp(helper)", cpi: 2.11, cpr: 5.07, spend: 167.28, install: 72, d1: 30 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "igpfarm2(cpi15)", cpi: 2.94, cpr: 5.88, spend: 77.63, install: 24, d1: 12 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "fake_harvest(watermelon)", cpi: 3.03, cpr: 7.43, spend: 343.44, install: 103, d1: 42 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "fake_carrot", cpi: 4.60, cpr: 6.90, spend: 30.38, install: 6, d1: 4 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "help_fake(choice)", cpi: 4.89, cpr: 9.78, spend: 10.76, install: 2, d1: 1 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "fake_orange", cpi: 5.01, cpr: 8.77, spend: 77.21, install: 14, d1: 8 },
+    { group: "JP-IOS", flag: "🇯🇵", label: "fake_watermelon", cpi: 5.13, cpr: 10.26, spend: 56.43, install: 10, d1: 5 }
+  ];
+
+  const labels = data.map(d => d.label);
+  const cpis = data.map(d => d.cpi);
+  const cprs = data.map(d => d.cpr);
+
+  // 좌측 국가/OS 컬럼 생성
+  const geoColumn = document.getElementById('geoColumn');
+  const totalRows = data.length;
+  const chartTopPadding = 8;
+  const chartBottomPadding = 32;
+  const chartHeight = 1200;
+  const usableHeight = chartHeight - chartTopPadding - chartBottomPadding;
+  const rowHeight = usableHeight / totalRows;
+
+  const topSpacer = document.createElement('div');
+  topSpacer.style.height = chartTopPadding + 'px';
+  geoColumn.appendChild(topSpacer);
+
+  const groupCounts = {};
+  data.forEach(d => { groupCounts[d.group] = (groupCounts[d.group] || 0) + 1; });
+  const groupOrder = ["US-AOS", "US-IOS", "KR-AOS", "JP-IOS"];
+
+  groupOrder.forEach(group => {
+    const count = groupCounts[group];
+    const blockHeight = count * rowHeight;
+    const colors = groupColors[group];
+    const flag = data.find(d => d.group === group).flag;
+
+    const block = document.createElement('div');
+    block.style.cssText = `
+      height: ${blockHeight}px;
+      background: ${colors.bg};
+      color: ${colors.text};
+      border-left: 3px solid ${colors.border};
+      border-radius: 8px 0 0 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      margin-bottom: 2px;
+      font-weight: 500;
+      text-align: center;
+    `;
+    block.innerHTML = `
+      <div style="font-size: 16px; margin-bottom: 2px;">${flag}</div>
+      <div style="font-size: 11px;">${group}</div>
+      <div style="font-size: 9px; opacity: 0.7; margin-top: 2px;">${count} 소재</div>
+    `;
+    geoColumn.appendChild(block);
+  });
+
+  new Chart(document.getElementById('netChart'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'CPI(Net) $',
+          data: cpis,
+          backgroundColor: '#378ADD',
+          borderColor: '#185FA5',
+          borderWidth: 1,
+          datalabels: {
+            anchor: 'end',
+            align: 'end',
+            color: '#185FA5',
+            font: { size: 10, weight: 500 },
+            formatter: function(value) { return '$' + value.toFixed(2); }
+          }
+        },
+        {
+          label: 'CPR_D1(Net) $',
+          data: cprs,
+          backgroundColor: '#D85A30',
+          borderColor: '#993C1D',
+          borderWidth: 1,
+          datalabels: {
+            anchor: 'end',
+            align: 'end',
+            color: '#993C1D',
+            font: { size: 10, weight: 500 },
+            formatter: function(value) { return '$' + value.toFixed(2); }
+          }
+        }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 8, right: 40, bottom: 8 } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) { return ctx.dataset.label + ': $' + ctx.parsed.x.toFixed(2); },
+            afterBody: function(ctxArr) {
+              const idx = ctxArr[0].dataIndex;
+              return ['Spend: $' + data[idx].spend.toFixed(0), 'Install: ' + data[idx].install, 'D1 Retained: ' + data[idx].d1];
+            },
+            title: function(ctxArr) {
+              const idx = ctxArr[0].dataIndex;
+              return data[idx].flag + ' ' + data[idx].group + ' — ' + data[idx].label;
+            }
+          }
+        },
+        datalabels: { display: true }
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          title: { display: true, text: 'USD ($)' },
+          ticks: { callback: function(value) { return '$' + value; } },
+          grid: { display: false }
+        },
+        y: {
+          ticks: { font: { size: 10 } },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>
