@@ -18,6 +18,7 @@
   --must:#a93726; --must-bg:#f7e5e1; --pri:#8f5d0c; --pri-bg:#f7edda;
   --field:#2b5c86; --field-bg:#e3ecf4; --chk:#63508b; --chk-bg:#ebe6f4;
   --low:#6c7883; --low-bg:#e8eaec; --own:#0d6b5c; --own-bg:#dfeee9;
+  --hl:#fcf3cd; --hl-line:#e8d79b;
   --shadow:0 1px 2px rgba(20,26,32,.06),0 8px 24px -16px rgba(20,26,32,.25);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -27,6 +28,7 @@
   --must:#e8806d; --must-bg:#35211d; --pri:#d7a751; --pri-bg:#302614;
   --field:#7fabd6; --field-bg:#1b2836; --chk:#ad97d3; --chk-bg:#262034;
   --low:#8c959f; --low-bg:#222930; --own:#41b49c; --own-bg:#12302a;
+  --hl:#312b16; --hl-line:#4d4222;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.7);
 }}
 :root[data-theme="dark"]{
@@ -36,6 +38,7 @@
   --must:#e8806d; --must-bg:#35211d; --pri:#d7a751; --pri-bg:#302614;
   --field:#7fabd6; --field-bg:#1b2836; --chk:#ad97d3; --chk-bg:#262034;
   --low:#8c959f; --low-bg:#222930; --own:#41b49c; --own-bg:#12302a;
+  --hl:#312b16; --hl-line:#4d4222;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.7);
 }
 *{box-sizing:border-box}
@@ -96,6 +99,7 @@ input,select,textarea{font:inherit;color:inherit}
 .row[data-p="현장 후보"]::before{background:var(--field)}
 .row[data-p="확인 필요"]::before{background:var(--chk)}
 .row[data-p="자사"]::before{background:var(--own)}
+.row[data-hl="1"]{background:var(--hl);border-color:var(--hl-line)}
 .row .mid{display:grid;grid-template-columns:30px 1fr;gap:9px;align-items:start;min-width:0;
   text-align:left;padding:2px 0}
 .row .idx{font-family:"Archivo",sans-serif;font-variant-numeric:tabular-nums;font-size:11px;
@@ -273,6 +277,9 @@ textarea.memo:focus{border-color:var(--accent)}
   });
 
   /* ---- helpers ---- */
+  /* 반드시 중에서도 별도 표기가 필요한 업체 — 목록 행을 옅은 노란색으로 */
+  var HL = {'Easybrain':1,'Paxie Games':1,'PlaySimple Games Limited':1,
+            'Voodoo':1,'Supercell':1,'Zynga':1};
   var PCLS = {'반드시':'must','우선':'pri','현장 후보':'field','확인 필요':'chk','자사':'own','후순위':'low'};
   var STL = {done:'완료', hold:'보류', plan:'예정'};
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
@@ -370,7 +377,7 @@ textarea.memo:focus{border-color:var(--accent)}
     if (!shown.length) { el.innerHTML = '<div class="empty">조건에 맞는 업체가 없습니다.<br>검색어나 필터를 지워보세요.</div>'; return; }
     el.innerHTML = shown.map(function(r){
       var st = S.status[r.n];
-      return '<div class="row" data-p="'+esc(r.pr)+'">'+
+      return '<div class="row" data-p="'+esc(r.pr)+'"'+(HL[r.c]?' data-hl="1"':'')+'>'+
         '<button class="mid" data-open="'+esc(r.n)+'" aria-label="'+esc(r.c)+' 상세 열기">'+
           '<span class="idx">'+esc(r.n)+'</span>'+
           '<span class="bd">'+
