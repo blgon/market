@@ -901,6 +901,10 @@ textarea.memo:focus{border-color:var(--accent)}
   document.getElementById('vnav').addEventListener('click', function(e){
     var b = e.target.closest('[data-v]'); if (b) setView(b.dataset.v, true);
   });
+  window.addEventListener('hashchange', function(){
+    var v = (location.hash || '').replace('#','');
+    if (VIEWS[v] && v !== S.view) setView(v, false);
+  });
 
   paintTabs(); render();
   var start = (location.hash || '').replace('#','');
